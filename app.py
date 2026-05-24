@@ -7,14 +7,14 @@ import whisper
 import streamlit.components.v1 as components
 
 # إضافة الميتا تاجز للموقع
+st.set_page_config(page_title="AI Shorts Batch Generator", page_icon="🎬", layout="centered")
+
 meta_tags = """
-    <meta name="description" content="أفضل أداة مجانية لتحويل فيديوهاتك الطويلة إلى Shorts احترافية مع ترجمة تلقائية!">
+    <meta name="description" content="AI-powered tool to transform long videos into viral, professional-quality Shorts with automatic captions and smart cropping.">
     <meta property="og:title" content="AI Shorts Batch Generator">
-    <meta property="og:description" content="اصنعي فيديوهات Shorts احترافية في ثوانٍ!">
-    <meta property="og:image" content="رابط_صورة_اللوجو_الخاص_بك">
+    <meta property="og:description" content="Convert your long videos into engaging TikTok/Reels content instantly!">
 """
 components.html(f"<head>{meta_tags}</head>", height=0)
-
 
 # 1. إعدادات التبويبة (الاسم والأيقونة كما في الصورة)
 st.set_page_config(page_title="AI Shorts Generator", page_icon="🎬", layout="centered")
