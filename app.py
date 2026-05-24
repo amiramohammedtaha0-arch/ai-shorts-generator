@@ -4,6 +4,17 @@ import numpy as np
 from PIL import Image, ImageDraw
 from moviepy.editor import VideoFileClip, CompositeVideoClip, ImageClip
 import whisper
+import streamlit.components.v1 as components
+
+# إضافة الميتا تاجز للموقع
+meta_tags = """
+    <meta name="description" content="أفضل أداة مجانية لتحويل فيديوهاتك الطويلة إلى Shorts احترافية مع ترجمة تلقائية!">
+    <meta property="og:title" content="AI Shorts Batch Generator">
+    <meta property="og:description" content="اصنعي فيديوهات Shorts احترافية في ثوانٍ!">
+    <meta property="og:image" content="رابط_صورة_اللوجو_الخاص_بك">
+"""
+components.html(f"<head>{meta_tags}</head>", height=0)
+
 
 # 1. إعدادات التبويبة (الاسم والأيقونة كما في الصورة)
 st.set_page_config(page_title="AI Shorts Generator", page_icon="🎬", layout="centered")
@@ -35,6 +46,16 @@ def create_text_clip(text, duration, start_time, video_w, video_h, fontsize=30, 
 
 # 4. واجهة المستخدم
 st.title("🎬 AI Shorts Batch Generator")
+
+# الوصف بالإنجليزية
+st.markdown("""
+### 🚀 About the Tool:
+This professional AI tool helps you scale your content creation:
+* **Batch Processing:** Automatically split long videos into 30-second viral Shorts.
+* **Smart Transcription:** Generate and burn-in accurate subtitles automatically.
+* **Auto-Cropping:** Intelligent 9:16 portrait conversion for TikTok, Reels, and YouTube Shorts.
+* **Manual Control:** Flexible timing settings for precise cuts.
+""")
 
 uploaded_file = st.file_uploader("Upload your video:", type=["mp4", "mov"])
 mode = st.radio("Processing Mode:", ("🤖 Auto-Batch (All 30s clips)", "⏱️ Manual Single Cut"))
