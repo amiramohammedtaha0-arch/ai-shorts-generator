@@ -2,6 +2,8 @@ import streamlit as st
 import os
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 import whisper
+import numpy as np
+from PIL import Image, ImageDraw
 
 # 1. إعدادات الصفحة الاحترافية
 st.set_page_config(page_title="AI Shorts Generator", page_icon="🎬", layout="centered")
@@ -46,22 +48,24 @@ if uploaded_file is not None:
                 
                 # إعداد طبقات الفيديو
                 ui_clips = [short_clip]
+
                 
-                # إضافة العنوان الجذاب
-                title_clip = (TextClip(short_title, fontsize=30, color='yellow', font='Arial-Bold', bg_color='black')
-                              .set_position(('center', 40))
-                              .set_duration(duration))
-                ui_clips.append(title_clip)
+                #ده اللي عدلتته
+
+                def create_text_clip(text, duration, start_time, video_w, video_h, fontsize=30, color='white'):
+                    img = Image.new('RGBA', (int(video_w), 100), (0, 0, 0, 0))
+                    d = ImageDraw.Draw(img)
+                    d.text((video_w*0.1, 40), text, fill=color)
+                    return ImageClip(np.array(img)).set_duration(duration).set_start(start_time).set_position('center')
+
+# 1. إضافة العنوان الجذاب (بدل الجزء الممسوح)
+               ui_clips.append(create_text_clip(short_title, duration, 0, video.w, video.h, fontsize=40, color='yellow'))
+               for seg in segments:
+                   if seg["start"] < duration:
+                       sub_clip = create_text_clip(seg["text"], min(seg["end"], duration) - seg["start"], seg["start"], video.w, video.h)
+                       ui_clips.append(sub_clip)
                 
-                # إضافة الكلام (Subtitles)
-                for seg in segments:
-                    if seg["start"] < duration:
-                        sub_clip = (TextClip(seg["text"], fontsize=24, color='white', font='Arial',
-                                            method='caption', size=(video.w * 0.8, None))
-                                    .set_position(('center', 'center'))
-                                    .set_start(seg["start"])
-                                    .set_end(min(seg["end"], duration)))
-                        ui_clips.append(sub_clip)
+                
                 
                 # دمج كل شيء في فيديو واحد
                 final_video = CompositeVideoClip(ui_clips)
