@@ -8,7 +8,7 @@ from moviepy.editor import VideoFileClip, CompositeVideoClip, ImageClip
 import whisper
 
 # إعدادات التبويبة
-st.set_page_config(page_title="AI Shorts Batch Generator", page_icon="🎬", layout="centered")
+st.set_page_config(page_title="AI Shorts Generator", page_icon="🎬", layout="centered")
 
 meta_tags = """
     <meta name="description" content="AI-powered tool to transform long videos into viral, professional-quality Shorts.">
