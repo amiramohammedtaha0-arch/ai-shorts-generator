@@ -58,7 +58,7 @@ This professional AI tool helps you scale your content creation:
 """)
 
 uploaded_file = st.file_uploader("Upload your video:", type=["mp4", "mov"])
-mode = st.radio("Processing Mode:", ("🤖 Auto-Batch (All 30s clips)", "⏱️ Manual Single Cut"))
+mode = st.radio("Processing Mode:", (" 🤖 Auto-Batch (All 30s clips)", "⏱️ Manual Single Cut"))
 
 # إعدادات الوقت في حالة القص اليدوي
 start_time_manual, end_time_manual = 0, 30
