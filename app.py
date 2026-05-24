@@ -129,6 +129,7 @@ if uploaded_file is not None:
                     st.video(output_name)
                     with open(output_name, "rb") as f:
                         st.download_button(f"📥 Download {output_name}", f, file_name=output_name)
+                        
 
                 full_video.close()
                 os.remove(local_video_path)
